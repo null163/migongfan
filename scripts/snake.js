@@ -7,7 +7,7 @@ let tailSpeed                  //尾巴变短速度
 let foodSpeed2                 //食物移动速度(随机路线)
 let foodSpeed31                //食物移动速度(固定路线，速度不变)
 let foodSpeed32                //食物移动速度(固定路线，速度变化)
-let maxScore = Number(localStorage.getItem('maxScore'))
+let maxScore = Number(localStorage.getItem('maxScore_mgf'))
 let totalScore                 //总分数
 let snakeScore                 //储存分数
 let bound1                     //第一阶段分数
@@ -95,12 +95,12 @@ function resize() {
   maskLeft.style.width = 10 / 659 * windowHeight + 'px'
   maskLeft.style.height = gameWidth + 'px'
   maskLeft.style.top = Top + 'px'
-  maskLeft.style.left = 7 / 659 * windowHeight + 'px'
+  maskLeft.style.left = 7.2 / 659 * windowHeight + 'px'
 
   maskRight.style.width = 10 / 659 * windowHeight + 'px'
   maskRight.style.height = gameWidth + 'px'
   maskRight.style.top = Top + 'px'
-  maskRight.style.left = gameWidth + 16 / 659 * windowHeight + 'px'
+  maskRight.style.left = gameWidth + 15.7 / 659 * windowHeight + 'px'
 
   score1 = 125 / 659 * windowHeight  //top
   score2 = 121 / 659 * windowHeight  //left
@@ -1042,7 +1042,7 @@ function GameOver() { //游戏结束
   drawGame()
   if (totalScore > maxScore) {
     maxScore = totalScore
-    localStorage.setItem('maxScore', maxScore)
+    localStorage.setItem('maxScore_mgf', maxScore)
   }
   if (maxScore > 99999) {
     maxScoreText.innerHTML = Math.floor(maxScore / 100) / 100 + '万'
