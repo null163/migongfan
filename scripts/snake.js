@@ -95,12 +95,12 @@ function resize() {
   maskLeft.style.width = 10 / 659 * windowHeight + 'px'
   maskLeft.style.height = gameWidth + 'px'
   maskLeft.style.top = Top + 'px'
-  maskLeft.style.left = 7.2 / 659 * windowHeight + 'px'
+  maskLeft.style.left = 7.1 / 659 * windowHeight + 'px'
 
   maskRight.style.width = 10 / 659 * windowHeight + 'px'
   maskRight.style.height = gameWidth + 'px'
   maskRight.style.top = Top + 'px'
-  maskRight.style.left = gameWidth + 15.7 / 659 * windowHeight + 'px'
+  maskRight.style.left = gameWidth + 16.5 / 659 * windowHeight + 'px'
 
   score1 = 125 / 659 * windowHeight  //top
   score2 = 121 / 659 * windowHeight  //left
@@ -329,7 +329,7 @@ function init() { //初始化
   snake = [{ x: 6, y: 6, dirX: 0, dirY: 1 }]
   foodWeight = [5, 3, 1]
   food = []
-  movingFood31 = [{ x: 0, y: 12, id: 3 }]
+  movingFood31 = [{ x: 0, y: 12, id: 3 }, { x: 12, y: 12, id: 3 }]
   movingFood32 = []
   movingFood2 = []
   hole = {}
