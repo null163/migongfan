@@ -95,7 +95,7 @@ function resize() {
   maskLeft.style.width = 10 / 659 * windowHeight + 'px'
   maskLeft.style.height = gameWidth + 'px'
   maskLeft.style.top = Top + 'px'
-  maskLeft.style.left = 7.5 / 659 * windowHeight + 'px'
+  maskLeft.style.left = 7 / 659 * windowHeight + 'px'
 
   maskRight.style.width = 10 / 659 * windowHeight + 'px'
   maskRight.style.height = gameWidth + 'px'
