@@ -89,8 +89,8 @@ function resize() {
   headHeight = 152 / 659 * windowHeight
   headWidth = 318 / 659 * windowHeight
   keyboardHeight = 221 / 659 * windowHeight
-  Top = (152 - 5) / 659 * windowHeight
-  Left = (headWidth - gameWidth) / 2 / 659 * windowHeight
+  Top = headHeight - 5 / 659 * windowHeight
+  Left = (headWidth - gameWidth) / 2
 
   maskLeft.style.width = 10 / 659 * windowHeight + 'px'
   maskLeft.style.height = gameWidth + 'px'
@@ -100,7 +100,7 @@ function resize() {
   maskRight.style.width = 10 / 659 * windowHeight + 'px'
   maskRight.style.height = gameWidth + 'px'
   maskRight.style.top = Top + 'px'
-  maskRight.style.left = gameWidth + 16.4 / 659 * windowHeight + 'px'
+  maskRight.style.left = gameWidth + 16.2 / 659 * windowHeight + 'px'
 
   score1 = 125 / 659 * windowHeight  //top
   score2 = 121 / 659 * windowHeight  //left
