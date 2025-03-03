@@ -95,12 +95,12 @@ function resize() {
   maskLeft.style.width = 10 / 659 * windowHeight + 'px'
   maskLeft.style.height = gameWidth + 'px'
   maskLeft.style.top = Top + 'px'
-  maskLeft.style.left = 6.4 / 659 * windowHeight + 'px'
+  maskLeft.style.left = 5.8 / 659 * windowHeight + 'px'
 
   maskRight.style.width = 10 / 659 * windowHeight + 'px'
   maskRight.style.height = gameWidth + 'px'
   maskRight.style.top = Top + 'px'
-  maskRight.style.left = gameWidth + 16.2 / 659 * windowHeight + 'px'
+  maskRight.style.left = gameWidth + 15.8 / 659 * windowHeight + 'px'
 
   score1 = 125 / 659 * windowHeight  //top
   score2 = 121 / 659 * windowHeight  //left
@@ -122,7 +122,7 @@ function resize() {
   tipLeft = (windowWidth + gameWidth) / 2 + 105 / 659 * windowHeight
 
   pausePanelHeight = 150 / 659 * windowHeight
-  pausePanelWidth = 225 / 659 * windowHeight
+  pausePanelWidth = 222 / 659 * windowHeight
   pausePanelTop = 205 / 659 * windowHeight
   pausePanelLeft = (windowWidth - pausePanelWidth) / 2
 
@@ -137,7 +137,7 @@ function resize() {
   continueLeft = 130 / 659 * windowHeight
 
   goHeight = 200 / 659 * windowHeight
-  goWidth = 225 / 659 * windowHeight
+  goWidth = 222 / 659 * windowHeight
   goTop = 20 / 659 * windowHeight
 
   againWidth = 105 / 659 * windowHeight
@@ -187,10 +187,10 @@ function resize() {
   game.style.backgroundSize = gameWidth + 'px ' + gameWidth + 'px'
 
   keyboard.style.height = keyboardHeight + 'px'
-  keyboard.style.width = gameWidth - 1 / 659 * windowHeight + 'px'
-  keyboard.style.top = gameWidth + Top - 0.5 / 659 * windowHeight + 'px'
-  keyboard.style.left = Left + 1 / 659 * windowHeight + 'px'
-  keyboard.style.backgroundSize = gameWidth - 1 / 659 * windowHeight + 'px ' + keyboardHeight + 'px'
+  keyboard.style.width = gameWidth + 'px'
+  keyboard.style.top = gameWidth + Top + 'px'
+  keyboard.style.left = Left + 'px'
+  keyboard.style.backgroundSize = gameWidth + 'px ' + keyboardHeight + 'px'
 
   pauseButton.style.height = buttonWidth + 'px'
   pauseButton.style.width = buttonWidth + 'px'
@@ -312,8 +312,8 @@ function init() { //初始化
   foodSpeed32 = defaultSpeed
   totalScore = 0
   snakeScore = 0
-  bound1 = 500
-  bound2 = 1000
+  bound1 = 300
+  bound2 = 600
   scoreRefresh(0)
   tail = 0
   speedUp = false
@@ -329,7 +329,7 @@ function init() { //初始化
   snake = [{ x: 6, y: 6, dirX: 0, dirY: 1 }]
   foodWeight = [5, 3, 1]
   food = []
-  movingFood31 = [{ x: 0, y: 12, id: 3 }, { x: 12, y: 12, id: 3 }]
+  movingFood31 = []
   movingFood32 = []
   movingFood2 = []
   hole = {}

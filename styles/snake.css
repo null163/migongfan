@@ -45,6 +45,8 @@ body {
 
 .bgHead {
     position: absolute;
+    margin: 0;
+    overflow: hidden;
     z-index: 3;
     background-image: url(../assets/bg4.png);
 }
@@ -93,6 +95,7 @@ body {
 }
 
 .score {
+    margin: 0;
     font-family: myFont;
     color: #e8d5b0;
 }
