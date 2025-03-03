@@ -640,7 +640,7 @@ function drawGame() { //打印贴图
   }
   else if (snake[0].dirX === 0 && snake[0].dirY === 1 || (gameOver || settle) && snake.length > 1 &&
     (snake[0].dirX === 1 && snake[0].dirY === 1 && snake[1].x === snake[0].x + 1 || snake[0].dirX === -1 &&
-      snake[0].dirY === 1 && snake[1].x === snake[0].x - 1) || snake.length > 1 && snake[1].x === snake[0].x && snake[1].y === snake[0].y - 1) {
+      snake[0].dirY === 1 && snake[1].x === snake[0].x - 1) || !(gameOver || settle) && snake.length > 1 && snake[1].x === snake[0].x && snake[1].y === snake[0].y - 1) {
     if (gameOver) head.src = './assets/deadV.png'
     else if (speedUp) head.src = './assets/rushV.png'
     else head.src = './assets/headV.png'
@@ -657,7 +657,7 @@ function drawGame() { //打印贴图
   }
   else if (snake[0].dirX === 0 && snake[0].dirY === -1 || (gameOver || settle) && snake.length > 1 &&
     (snake[0].dirX === 1 && snake[0].dirY === -1 && snake[1].x === snake[0].x + 1 || snake[0].dirX === -1 &&
-      snake[0].dirY === -1 && snake[1].x === snake[0].x - 1) || snake.length > 1 && snake[1].x === snake[0].x && snake[1].y === snake[0].y + 1) {
+      snake[0].dirY === -1 && snake[1].x === snake[0].x - 1) || !(gameOver || settle) && snake.length > 1 && snake[1].x === snake[0].x && snake[1].y === snake[0].y + 1) {
     if (gameOver) head.src = './assets/deadV.png'
     else if (speedUp) head.src = './assets/rushV.png'
     else head.src = './assets/headV.png'
@@ -677,7 +677,7 @@ function drawGame() { //打印贴图
   }
   else if (snake[0].dirX === -1 && snake[0].dirY === 0 || (gameOver || settle) && snake.length > 1 &&
     (snake[0].dirX === -1 && snake[0].dirY === 1 && snake[1].y === snake[0].y + 1 || snake[0].dirX === -1 &&
-      snake[0].dirY === -1 && snake[1].y === snake[0].y - 1) || snake.length > 1 && snake[1].x === snake[0].x + 1 && snake[1].y === snake[0].y) {
+      snake[0].dirY === -1 && snake[1].y === snake[0].y - 1) || !(gameOver || settle) && snake.length > 1 && snake[1].x === snake[0].x + 1 && snake[1].y === snake[0].y) {
     if (gameOver) head.src = './assets/deadH.png'
     else if (speedUp) head.src = './assets/rushH.png'
     else head.src = './assets/headH.png'
@@ -696,7 +696,7 @@ function drawGame() { //打印贴图
   }
   else if (snake[0].dirX === 1 && snake[0].dirY === 0 || (gameOver || settle) && snake.length > 1 &&
     (snake[0].dirX === 1 && snake[0].dirY === -1 && snake[1].y === snake[0].y - 1 || snake[0].dirX === 1 &&
-      snake[0].dirY === 1 && snake[1].y === snake[0].y + 1) || snake.length > 1 && snake[1].x === snake[0].x - 1 && snake[1].y === snake[0].y) {
+      snake[0].dirY === 1 && snake[1].y === snake[0].y + 1) || !(gameOver || settle) && snake.length > 1 && snake[1].x === snake[0].x - 1 && snake[1].y === snake[0].y) {
     if (gameOver) head.src = './assets/deadH.png'
     else if (speedUp) head.src = './assets/rushH.png'
     else head.src = './assets/headH.png'
