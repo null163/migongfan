@@ -64,9 +64,7 @@ const maxScoreText = document.querySelector('.maxScore')
 const currentScoreText = document.querySelector('.currentScore')
 const key = document.querySelector('.key')
 
-const buttonSound = document.getElementById('buttonSound')
-const eatFoodSound = document.getElementById('eatFoodSound')
-const settleSound = document.getElementById('settleSound')
+const BGM = document.getElementById('bgm')
 
 let windowHeight, bodySize, gameWidth, headHeight, headWidth, dirControlWidth
 let keyboardHeight, buttonWidth, buttonTop1, buttonTop2, buttonLeft, i, goTop
@@ -95,7 +93,7 @@ function resize() {
   maskLeft.style.width = 10 / 659 * windowHeight + 'px'
   maskLeft.style.height = gameWidth + 'px'
   maskLeft.style.top = Top + 'px'
-  maskLeft.style.left = 5.8 / 659 * windowHeight + 'px'
+  maskLeft.style.left = 6 / 659 * windowHeight + 'px'
 
   maskRight.style.width = 10 / 659 * windowHeight + 'px'
   maskRight.style.height = gameWidth + 'px'
@@ -321,7 +319,7 @@ function init() { //初始化
   eatFood = false
   holeExist = false
   firstHole = true
-  musicIsOn = true
+  musicIsOn = false
   gameOn = false
   gameOver = false
   pause = false
@@ -402,10 +400,6 @@ function whetherEatFood() { //判断是否吃到食物
   food.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y) {
       eatFood = true
-      if (musicIsOn) {
-        eatFoodSound.currentTime = 0
-        eatFoodSound.play()
-      }
       animateFun(obj.id * 5)
       snakeScore += obj.id * 5
       tail += obj.id
@@ -415,10 +409,6 @@ function whetherEatFood() { //判断是否吃到食物
   movingFood31.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
       eatFood = true
-      if (musicIsOn) {
-        eatFoodSound.currentTime = 0
-        eatFoodSound.play()
-      }
       animateFun(obj.id * 5)
       snakeScore += obj.id * 5
       tail += obj.id
@@ -428,10 +418,6 @@ function whetherEatFood() { //判断是否吃到食物
   movingFood32.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
       eatFood = true
-      if (musicIsOn) {
-        eatFoodSound.currentTime = 0
-        eatFoodSound.play()
-      }
       animateFun(obj.id * 5)
       snakeScore += obj.id * 5
       tail += obj.id
@@ -441,10 +427,6 @@ function whetherEatFood() { //判断是否吃到食物
   movingFood2.forEach((obj, idx) => {
     if (snake[0].x === obj.x && snake[0].y === obj.y || snake[1].x === obj.x && snake[1].y === obj.y) {
       eatFood = true
-      if (musicIsOn) {
-        eatFoodSound.currentTime = 0
-        eatFoodSound.play()
-      }
       animateFun(obj.id * 5)
       snakeScore += obj.id * 5
       tail += obj.id
@@ -489,7 +471,6 @@ function whetherEnterHole() { //判断是否进入洞口
 }
 
 function settleScore() { //结算分数
-  if (musicIsOn) settleSound.play()
   settle = true
   settling = true
   holeExist = false
@@ -527,9 +508,12 @@ function scoreRefresh(sc) { //分数更新
 }
 
 function scoreRefreshLoop() { //分数更新循环
+  if (i < 10) i++
+  else i += 5
   scoreRefresh(i)
-  i += 1
-  if (i <= totalScore + snakeScore) setTimeout(scoreRefreshLoop, 25)
+  if (i < totalScore + snakeScore) {
+    setTimeout(scoreRefreshLoop, 25)
+  }
 }
 
 function drawGame() { //打印贴图
@@ -545,6 +529,58 @@ function drawGame() { //打印贴图
     img.style.height = cellSize / 659 * windowHeight + 'px'
     img.src = './assets/hole.png'
     gameContainer.appendChild(img)
+  }
+
+  //打印食物
+  if (gameOn) {
+    food.forEach(obj => {
+      const div = document.createElement("div")
+      const img = document.createElement("img")
+      div.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
+      div.style.left = (obj.x * cellSize + 1) / 659 * windowHeight + 'px'
+      div.style.position = 'absolute'
+      img.src = './assets/food' + obj.id + '.png'
+      img.style.width = (cellSize - 3) / 659 * windowHeight + 'px'
+      img.style.height = (cellSize + 3) / 659 * windowHeight + 'px'
+      div.appendChild(img)
+      gameContainer.appendChild(div)
+    })
+    movingFood31.forEach(obj => {
+      const div = document.createElement("div")
+      const img = document.createElement("img")
+      div.style.top = (obj.y * cellSize - 2) / 659 * windowHeight + 'px'
+      div.style.left = (obj.x * cellSize - 2) / 659 * windowHeight + 'px'
+      div.style.position = 'absolute'
+      img.src = './assets/food' + obj.id + '.png'
+      img.style.width = (cellSize + 3) / 659 * windowHeight + 'px'
+      img.style.height = (cellSize + 4) / 659 * windowHeight + 'px'
+      div.appendChild(img)
+      gameContainer.appendChild(div)
+    })
+    movingFood32.forEach(obj => {
+      const div = document.createElement("div")
+      const img = document.createElement("img")
+      div.style.top = (obj.y * cellSize - 2) / 659 * windowHeight + 'px'
+      div.style.left = (obj.x * cellSize - 2) / 659 * windowHeight + 'px'
+      div.style.position = 'absolute'
+      img.src = './assets/food' + obj.id + '.png'
+      img.style.width = (cellSize + 3) / 659 * windowHeight + 'px'
+      img.style.height = (cellSize + 4) / 659 * windowHeight + 'px'
+      div.appendChild(img)
+      gameContainer.appendChild(div)
+    })
+    movingFood2.forEach(obj => {
+      const div = document.createElement("div")
+      const img = document.createElement("img")
+      div.style.top = (obj.y * cellSize + 2) / 659 * windowHeight + 'px'
+      div.style.left = (obj.x * cellSize - 2) / 659 * windowHeight + 'px'
+      div.style.position = 'absolute'
+      img.src = './assets/food' + obj.id + '.png'
+      img.style.width = (cellSize + 3) / 659 * windowHeight + 'px'
+      img.style.height = (cellSize - 3) / 659 * windowHeight + 'px'
+      div.appendChild(img)
+      gameContainer.appendChild(div)
+    })
   }
 
   //打印尾部
@@ -717,58 +753,6 @@ function drawGame() { //打印贴图
   div.appendChild(head)
   gameContainer.appendChild(div)
 
-  //打印食物
-  if (gameOn) {
-    food.forEach(obj => {
-      const div = document.createElement("div")
-      const img = document.createElement("img")
-      div.style.top = obj.y * cellSize / 659 * windowHeight + 'px'
-      div.style.left = (obj.x * cellSize + 1) / 659 * windowHeight + 'px'
-      div.style.position = 'absolute'
-      img.src = './assets/food' + obj.id + '.png'
-      img.style.width = (cellSize - 3) / 659 * windowHeight + 'px'
-      img.style.height = (cellSize + 3) / 659 * windowHeight + 'px'
-      div.appendChild(img)
-      gameContainer.appendChild(div)
-    })
-    movingFood31.forEach(obj => {
-      const div = document.createElement("div")
-      const img = document.createElement("img")
-      div.style.top = (obj.y * cellSize - 2) / 659 * windowHeight + 'px'
-      div.style.left = (obj.x * cellSize - 2) / 659 * windowHeight + 'px'
-      div.style.position = 'absolute'
-      img.src = './assets/food' + obj.id + '.png'
-      img.style.width = (cellSize + 3) / 659 * windowHeight + 'px'
-      img.style.height = (cellSize + 4) / 659 * windowHeight + 'px'
-      div.appendChild(img)
-      gameContainer.appendChild(div)
-    })
-    movingFood32.forEach(obj => {
-      const div = document.createElement("div")
-      const img = document.createElement("img")
-      div.style.top = (obj.y * cellSize - 2) / 659 * windowHeight + 'px'
-      div.style.left = (obj.x * cellSize - 2) / 659 * windowHeight + 'px'
-      div.style.position = 'absolute'
-      img.src = './assets/food' + obj.id + '.png'
-      img.style.width = (cellSize + 3) / 659 * windowHeight + 'px'
-      img.style.height = (cellSize + 4) / 659 * windowHeight + 'px'
-      div.appendChild(img)
-      gameContainer.appendChild(div)
-    })
-    movingFood2.forEach(obj => {
-      const div = document.createElement("div")
-      const img = document.createElement("img")
-      div.style.top = (obj.y * cellSize + 2) / 659 * windowHeight + 'px'
-      div.style.left = (obj.x * cellSize - 2) / 659 * windowHeight + 'px'
-      div.style.position = 'absolute'
-      img.src = './assets/food' + obj.id + '.png'
-      img.style.width = (cellSize + 3) / 659 * windowHeight + 'px'
-      img.style.height = (cellSize - 3) / 659 * windowHeight + 'px'
-      div.appendChild(img)
-      gameContainer.appendChild(div)
-    })
-  }
-
   //打印地图边缘线
   const img = document.createElement("img")
   img.style.height = gameWidth + 'px'
@@ -920,9 +904,7 @@ function randomFood() {  //带权重随机生成一个食物id
   })
   let r = myRandom(1, sum)
   for (let i = 0; i < cumuWeights.length; i++) {
-    if (cumuWeights[i] >= r) {
-      return i + 1
-    }
+    if (cumuWeights[i] >= r) return i + 1
   }
 }
 
@@ -1126,16 +1108,14 @@ window.addEventListener('keyup', function (e) {  //键盘松开
 
 function musicControl() {  //音量键控制
   if (pausePanel.style.visibility === 'visible') {
-    buttonSound.currentTime = 0
-    buttonSound.play()
     if (musicIsOn) {
       musicIsOn = false
-      // BGM.pause()
+      BGM.pause()
       pausePanel.style.backgroundImage = 'url(./assets/pause_musicOFF.png)'
     }
     else {
       musicIsOn = true
-      // BGM.play()
+      BGM.play()
       pausePanel.style.backgroundImage = 'url(./assets/pause_musicON.png)'
     }
   }
@@ -1153,7 +1133,6 @@ musicON.addEventListener('touchstart', function (e) {  //音量键(触屏)
 
 function continueButtonControl() {  //'继续'按钮控制
   if (pausePanel.style.visibility === 'visible') {
-    if (musicIsOn) buttonSound.play()
     pause = false
     pauseButton.style.backgroundImage = 'url(./assets/pause_default.png)'
     pausePanel.style.visibility = 'hidden'
@@ -1173,7 +1152,6 @@ continueButton.addEventListener('touchstart', function (e) {  //继续(触屏)
 
 function againControl() {  //'再玩一次'按钮控制
   if (gameOver && gameOverPanelContainer.style.visibility === 'visible') {
-    if (musicIsOn) buttonSound.play()
     gameOver = false
     gameOverPanelContainer.style.visibility = 'hidden'
     init()
@@ -1323,7 +1301,9 @@ function gameOnControl() {  //初始状态：按方向键开始游戏 //settle�
     gameOn = true
     if (firstLoad) {
       firstLoad = false
-      // BGM.play()
+      musicIsOn = true
+      BGM.play()
+      pausePanel.style.backgroundImage = 'url(./assets/pause_musicON.png)'
     }
     startLoop()
   }
