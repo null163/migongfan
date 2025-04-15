@@ -310,8 +310,8 @@ function init() { //初始化
   foodSpeed32 = defaultSpeed
   totalScore = 0
   snakeScore = 0
-  bound1 = 300
-  bound2 = 600
+  bound1 = 150
+  bound2 = 300
   scoreRefresh(0)
   scoreText.style.color = '#e8d5b0'
   tail = 0
