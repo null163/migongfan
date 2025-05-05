@@ -74,8 +74,12 @@ let pausePanelWidth, pausePanelTop, pausePanelLeft, againTop, againLeft
 let musicWidth, musicHeight, musicTop, musicLeft, continueHeight, againWidth
 let continueWidth, continueTop, continueLeft, goHeight, goWidth, scAniWidth
 let maxScore1, maxScore2, currentScore1, currentScore2, scAniHeight, scAniFont1
-
 let keyFrames, timing, animation, scAniOutline, keyFrames2, timing2, keyFrames3
+
+let loadingWidth, loadingHeight, loadingTop, loadingTextLeft, loadingFont
+const loadingContainer = document.querySelector('.loadingContainer')
+const loadingImg = document.querySelector('.loadingImg')
+const loadingText = document.querySelector('.loadingText')
 
 //按屏幕比例缩放
 function resize() {
@@ -290,6 +294,26 @@ function resize() {
   key.style.top = keyboardTop + 'px'
   key.style.left = keyboardLeft + 'px'
 
+  //loading
+  loadingHeight = 137 / 659 * windowHeight
+  loadingWidth = 350 / 659 * windowHeight
+  loadingTop = 160 / 659 * windowHeight
+  loadingFont = 17 / 659 * windowHeight
+
+  loadingContainer.style.height = windowHeight + 'px'
+  loadingContainer.style.width = windowWidth + 'px'
+  loadingContainer.style.top = 0
+  loadingContainer.style.left = 0
+
+  loadingImg.style.height = loadingHeight + 'px'
+  loadingImg.style.width = loadingWidth + 'px'
+  loadingImg.style.top = loadingTop + 'px'
+  loadingImg.style.left = (windowWidth - loadingWidth) / 2 + 'px'
+  loadingImg.style.backgroundSize = loadingWidth + 'px ' + loadingHeight + 'px'
+
+  loadingText.style.top = loadingTop + 145 / 659 * windowHeight + 'px'
+  loadingText.style.left = windowWidth / 2 - 60 / 659 * windowHeight + 'px'
+  loadingText.style.fontSize = loadingFont + 'px'
 }
 
 window.addEventListener('resize', function () {
@@ -1056,57 +1080,6 @@ function GameOver() { //游戏结束
   }, s + 250)
 }
 
-window.addEventListener('keydown', function (e) {  //键盘按下
-  e.preventDefault();
-  //空格键暂停
-  if (e.key === ' ') {
-    pauseButtonControl()
-  }
-  else if (pause) return
-
-  switch (e.key) {
-    case 'ArrowUp':
-      dirToUp()
-      break
-    case 'ArrowDown':
-      dirToDown()
-      break
-    case 'ArrowLeft':
-      dirToLeft()
-      break
-    case 'ArrowRight':
-      dirToRight()
-      break
-    case 's':
-      if (!speedUp) speedStart()
-      break
-  }
-
-  //初始状态：按方向键开始游戏
-  //settle结束，方向键继续游戏
-  if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-    gameOnControl()
-  }
-
-  //死亡状态：按空格键回到初始状态
-  if (gameOver && e.key === ' ' && maxScoreText.style.visibility === 'visible') {
-    gameOver = false
-    gameOverPanelContainer.style.visibility = 'hidden'
-    maxScoreText.style.visibility = 'hidden'
-    currentScoreText.style.visibility = 'hidden'
-    init()
-  }
-})
-
-window.addEventListener('keyup', function (e) {  //键盘松开
-  e.preventDefault();
-  if (e.key === 's') speedEnd()
-
-  if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-    dirControlButton.style.backgroundImage = 'url(./assets/keyboard_default.png)'
-  }
-})
-
 function musicControl() {  //音量键控制
   if (pausePanel.style.visibility === 'visible') {
     if (musicIsOn) {
@@ -1122,16 +1095,6 @@ function musicControl() {  //音量键控制
   }
 }
 
-musicON.addEventListener('click', function (e) {  //音量键(鼠标)
-  e.preventDefault();
-  musicControl()
-})
-
-musicON.addEventListener('touchstart', function (e) {  //音量键(触屏)
-  e.preventDefault();
-  musicControl()
-})
-
 function continueButtonControl() {  //'继续'按钮控制
   if (pausePanel.style.visibility === 'visible') {
     pause = false
@@ -1141,16 +1104,6 @@ function continueButtonControl() {  //'继续'按钮控制
   }
 }
 
-continueButton.addEventListener('click', function (e) {  //继续(鼠标)
-  e.preventDefault();
-  continueButtonControl()
-})
-
-continueButton.addEventListener('touchstart', function (e) {  //继续(触屏)
-  e.preventDefault();
-  continueButtonControl()
-})
-
 function againControl() {  //'再玩一次'按钮控制
   if (gameOver && gameOverPanelContainer.style.visibility === 'visible') {
     gameOver = false
@@ -1158,16 +1111,6 @@ function againControl() {  //'再玩一次'按钮控制
     init()
   }
 }
-
-again.addEventListener('touchstart', function (e) {  //再玩一次(触屏)
-  e.preventDefault();
-  againControl()
-})
-
-again.addEventListener('click', function (e) {  //再玩一次(鼠标)
-  e.preventDefault();
-  againControl()
-})
 
 function pauseButtonControl() {  //暂停键控制
   if (!gameOver) {
@@ -1187,11 +1130,6 @@ function pauseButtonControl() {  //暂停键控制
   }
 }
 
-pauseButton.addEventListener('touchstart', function (e) {  //暂停键
-  e.preventDefault();
-  pauseButtonControl()
-})
-
 function speedStart() {  //加速开始
   if (!speedUp) {
     speedUp = true
@@ -1209,21 +1147,6 @@ function speedEnd() {  //加速结束
     foodSpeed32 = defaultSpeed
   }
 }
-
-speedButton.addEventListener('touchstart', function (e) {  //加速键按住
-  e.preventDefault();
-  speedStart()
-})
-
-speedButton.addEventListener('touchend', function (e) {  //抬起：加速取消
-  e.preventDefault();
-  speedEnd()
-})
-
-key.addEventListener('touchend', function (e) {  //抬起：方向键取消
-  e.preventDefault();
-  dirControlButton.style.backgroundImage = 'url(./assets/keyboard_default.png)'
-})
 
 function dirToUp() {
   if (!gameOver) {
@@ -1313,59 +1236,3 @@ function gameOnControl() {  //初始状态：按方向键开始游戏 //settle�
     gameLoop()
   }
 }
-
-document.addEventListener('touchmove', function (e) {  //方向键按住拖动  
-  e.preventDefault();
-  const touch = [...e.touches]
-  touch.forEach((obj) => {
-    const x = obj.clientX - (keyboardLeft + (windowWidth - gameWidth) / 2)
-    const y = obj.clientY - (keyboardTop + gameWidth + Top)
-    if (x > -30 / 659 * windowHeight && y > -60 / 659 * windowHeight && x < dirControlWidth + 60 / 659 * windowHeight && y < dirControlWidth + 60 / 659 * windowHeight) {
-      // console.log(parseInt(x) + ', ' + parseInt(y));
-      if (x < y && x + y < dirControlWidth) {
-        dirToLeft()
-        gameOnControl()
-      }
-      else if (x > y && x + y < dirControlWidth) {
-        dirToUp()
-        gameOnControl()
-      }
-      else if (x > y && x + y > dirControlWidth) {
-        dirToRight()
-        gameOnControl()
-      }
-      else if (x < y && x + y > dirControlWidth) {
-        dirToDown()
-        gameOnControl()
-      }
-    }
-  })
-}, { passive: false })
-
-document.addEventListener('touchstart', function (e) {  //方向键点击
-  e.preventDefault();
-  const touch = [...e.touches]
-  touch.forEach((obj) => {
-    const x = obj.clientX - (keyboardLeft + (windowWidth - gameWidth) / 2)
-    const y = obj.clientY - (keyboardTop + gameWidth + Top)
-    if (x > -30 / 659 * windowHeight && y > -60 / 659 * windowHeight && x < dirControlWidth + 60 / 659 * windowHeight && y < dirControlWidth + 60 / 659 * windowHeight) {
-      // console.log(parseInt(x) + ', ' + parseInt(y));
-      if (x < y && x + y < dirControlWidth) {
-        dirToLeft()
-        gameOnControl()
-      }
-      else if (x > y && x + y < dirControlWidth) {
-        dirToUp()
-        gameOnControl()
-      }
-      else if (x > y && x + y > dirControlWidth) {
-        dirToRight()
-        gameOnControl()
-      }
-      else if (x < y && x + y > dirControlWidth) {
-        dirToDown()
-        gameOnControl()
-      }
-    }
-  })
-}, { passive: false })
